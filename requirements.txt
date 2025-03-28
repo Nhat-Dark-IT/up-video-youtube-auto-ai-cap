@@ -1,0 +1,14 @@
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+python-dotenv
+requests
+pillow
+numpy
+google-generativeai
+ffmpeg-python
+pydub
+moviepy
+oauth2client
+google-cloud-storage
+tenacity
