@@ -32,12 +32,15 @@ jobs:
       - name: Set up credentials
         run: |
           mkdir -p credentials
+          
           # Giải mã base64 và lưu file service account
           echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}" | base64 -d > credentials/video-al-youtube-c53b44a82d2b.json
           
-          # Tạo các file credentials khác
+          # Giải mã base64 và lưu file YouTube token 
+          echo "${{ secrets.YOUTUBE_TOKEN_BASE64 }}" | base64 -d > credentials/youtube_token.json
+          
+          # Lưu client_secret.json
           echo '${{ secrets.YOUTUBE_CLIENT_SECRET }}' > credentials/client_secret.json
-          echo '${{ secrets.YOUTUBE_TOKEN }}' > credentials/youtube_token.json
           
           # Tạo file .env
           cat > credentials/.env << EOF
@@ -55,6 +58,8 @@ jobs:
         run: |
           echo "Kiểm tra format file service account..."
           python -c "import json; f=open('credentials/video-al-youtube-c53b44a82d2b.json'); json.load(f); f.close(); print('✅ Service account JSON hợp lệ')"
+          echo "Kiểm tra format file YouTube token..."
+          python -c "import json; f=open('credentials/youtube_token.json'); json.load(f); f.close(); print('✅ YouTube token JSON hợp lệ')"
           
       - name: Create temp directories
         run: |
